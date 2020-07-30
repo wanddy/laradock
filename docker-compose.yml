@@ -1715,3 +1715,9 @@ services:
         - ${DATA_PATH_HOST}/tomcat/logs:/usr/local/tomcat/logs
       # restart: always
 
+### regextester ####################################################
+    regextester:
+      container_name: regextester
+      build: regextester
+      ports:
+      - "${NGINX_REGEXTESTER_PORT}:80"
