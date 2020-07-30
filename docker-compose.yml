@@ -1715,9 +1715,24 @@ services:
         - ${DATA_PATH_HOST}/tomcat/logs:/usr/local/tomcat/logs
       # restart: always
 
+### datagear ####################################################
+    datagear:
+      container_name: datagear
+      image: datagear:${DATAGEAR_VERSION}
+      ports:
+        - "${DATAGEAR_HOST_HTTP_PORT}:50401"
+      networks:
+        - frontend
+        - backend
+      restart: always
+
 ### regextester ####################################################
     regextester:
       container_name: regextester
       build: regextester
       ports:
       - "${NGINX_REGEXTESTER_PORT}:80"
+      networks:
+        - frontend
+        - backend
+      restart: always
