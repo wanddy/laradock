@@ -46,10 +46,22 @@ RUN apt-get update \
     && mvn clean package -DskipTests 
 
 WORKDIR /var/www/datagear/datagear-webappembd/target/datagear-$DATAGEAR_VERSION/
-RUN rm -rf start.sh
-COPY start.sh ./
-RUN chmod +x start.sh
-ENTRYPOINT ["sh", "start.sh"]
+
+RUN file="$(ls -1 ./)" && echo $file
+
+RUN startsh="$(cat startup.sh)" && echo $startsh
+
+RUN cp -r startup.sh startup-v$DATAGEAR_VERSION.sh
+
+RUN rm -rf startup.sh
+
+COPY start.sh ./startup.sh
+
+RUN file="$(ls -1 ./)" && echo $file
+
+RUN chmod +x startup.sh
+
+ENTRYPOINT ["sh", "startup.sh"]
      
 EXPOSE 50401
 
