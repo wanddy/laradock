@@ -47,17 +47,8 @@ RUN apt-get update \
 
 WORKDIR /var/www/datagear/datagear-webappembd/target/datagear-$DATAGEAR_VERSION/
 
-RUN file="$(ls -1 ./)" && echo $file
-
-RUN startsh="$(cat startup.sh)" && echo $startsh
-
-RUN cp -r startup.sh startup-v$DATAGEAR_VERSION.sh
-
-RUN rm -rf startup.sh
-
-COPY start.sh ./startup.sh
-
-RUN file="$(ls -1 ./)" && echo $file
+RUN sed -i "s|nohup||g" startup.sh
+RUN sed -i "s|>/dev/null 2>&1 &||g" startup.sh
 
 RUN chmod +x startup.sh
 
