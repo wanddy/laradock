@@ -1717,8 +1717,12 @@ services:
 
 ### datagear ####################################################
     datagear:
+      build: 
+        context: ./datagear
+        args: 
+          - DATAGEAR_VERSION=${DATAGEAR_VERSION}
       container_name: datagear
-      image: datagear:${DATAGEAR_VERSION}
+      # image: datagear:${DATAGEAR_VERSION}
       ports:
         - "${DATAGEAR_HOST_HTTP_PORT}:50401"
       networks:
